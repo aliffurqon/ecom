@@ -1,8 +1,6 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-const { encryptPwd } = require('../helpers/bcrypt')
+"use strict";
+const { Model } = require("sequelize");
+const { encryptPwd } = require("../helpers/bcrypt");
 module.exports = (sequelize, DataTypes) => {
   class user extends Model {
     /**
@@ -12,24 +10,60 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      // user.belongsToMany(models.product, { through: "models.cart", foreignKey: "userId" });
+      user.belongsToMany(models.product, { through: "models.user_product" });
     }
-  };
-  user.init({
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    birthdate: DataTypes.DATE,
-    gender: DataTypes.STRING,
-    address: DataTypes.STRING,
-    type: DataTypes.STRING
-  }, {
-    hooks: {
-      beforeCreate: function (user, options) {
-        user.password = encryptPwd(user.password)
-      }
+  }
+  user.init(
+    {
+      name: DataTypes.STRING,
+      email: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            message: "Email must not be empty.",
+          },
+          isEmail: {
+            message: "Must email format.",
+          },
+        },
+      },
+      password: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            message: "Password must not be empty.",
+          },
+        },
+      },
+      birthdate: {
+        type: DataTypes.DATE,
+        validate: {
+          notEmpty: {
+            message: "Birthdate must not be empty",
+          },
+        },
+      },
+      gender: DataTypes.STRING,
+      address: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            message: "Address must not be empty",
+          },
+        },
+      },
+      type: DataTypes.STRING,
     },
-    sequelize,
-    modelName: 'user',
-  });
+    {
+      hooks: {
+        beforeCreate: function (user, options) {
+          user.password = encryptPwd(user.password);
+        },
+      },
+      sequelize,
+      modelName: "user",
+    }
+  );
   return user;
 };
