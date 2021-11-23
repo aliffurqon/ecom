@@ -23,8 +23,8 @@ module.exports = {
       weight: {
         type: Sequelize.INTEGER
       },
-      category: {
-        type: Sequelize.STRING(50)
+      idCategory: {
+        type: Sequelize.INTEGER
       },
       total_sold: {
         type: Sequelize.INTEGER

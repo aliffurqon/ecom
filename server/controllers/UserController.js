@@ -1,3 +1,5 @@
+const { user } = require("../models")
+
 const { decryptPwd } = require('../helpers/bcrypt')
 const { tokenGenerator } = require('../helpers/jwt')
 
@@ -14,10 +16,10 @@ class UserController {
 
     static async register(req, res) {
         try {
-            const { email, password, avatar, username, role } = req.body
+            const { name, email, password, birthdate, gender, address, type } = req.body
 
             let result = await user.create({
-                email, password, avatar, username, role
+                name, email, password, birthdate, gender, address, type
             })
             // let result = {
             // email, encryptPwd, avatar, username, role

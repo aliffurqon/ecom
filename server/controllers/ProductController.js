@@ -1,4 +1,4 @@
-const { product , user } = require('../models')
+const { product , user, category } = require('../models')
 
 class ProductController {
     static async getProduct(req, res) {
@@ -9,7 +9,7 @@ class ProductController {
                     userId: id
                 },
                 include: [
-                    user
+                    user, category
                 ]
             });
 
@@ -40,7 +40,23 @@ class ProductController {
     }
 
     static deleteProduct(req, res) {
-
+        try {
+            const id = +req.params.id;
+      
+            let result = await product.destroy({
+              where: { id },
+            });
+      
+            result === 1
+              ? res.status(200).json({
+                  message: `Id ${id} has been removed`,
+                })
+              : res.status(400).json({
+                  message: `id ${id} failed to remove`,
+                });
+        } catch (err) {
+            res.status(500).json(err);
+        }
     }
 
     static editProduct(req, res) {
