@@ -4,6 +4,7 @@ import Footer from "./component/Footer";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Profile from "./pages/Profile";
 
 
 
@@ -17,6 +18,7 @@ function App() {
             <Route exact path= "/" element={<Home/>}/>
             <Route path= "/login" element={<Login/>}/>
             <Route path= "/register" element={<Register/>}/>
+            <Route path= "/profile" element={<Profile/>}/>
           </Routes>
         <Footer/>
       </div>
