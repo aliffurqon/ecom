@@ -18,6 +18,10 @@ class ProductController {
     }
   }
 
+  static async addForm() {
+    //fungsi untik mengarahkan ke form add
+  }
+
   static async addProduct(req, res) {
     try {
       const { name, desc, price, stock, weight, categoryId, total_sold, rating, views } = req.body;
@@ -69,8 +73,42 @@ class ProductController {
     }
   }
 
-  static editProduct(req, res) {}
-  static buyProduct(req, res) {}
+  static updateForm(req, res) {
+    //fungsi untuk mengarahkan ke form update
+  }
+
+  static async updateProduct(req, res) {
+    try {
+      const id = +req.params.id;
+      const { name, desc, price, stock, weight, categoryId, total_sold, rating, views } = req.body;
+      let result = await product.update(
+        {
+          name,
+          desc,
+          price,
+          stock,
+          weight,
+          categoryId,
+          total_sold,
+          rating,
+          views,
+        },
+        {
+          where: { id },
+        }
+      );
+
+      result[0] === 1
+        ? res.status(200).json({
+            message: `Id ${id} has been updated`,
+          })
+        : res.status(400).json({
+            message: `id ${id} failed to update`,
+          });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
 }
 
 module.exports = ProductController;

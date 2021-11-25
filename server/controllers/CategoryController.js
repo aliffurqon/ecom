@@ -11,6 +11,11 @@ class CategoryController {
       res.status(500).json(e);
     }
   }
+
+  static async addForm() {
+    //fungsi untuk mengarahkan ke From tambah data
+  }
+
   static async addCategory(req, res) {
     try {
       const { category_name } = req.body;
@@ -23,6 +28,7 @@ class CategoryController {
       res.status(500).json(e);
     }
   }
+
   static async findByName(req, res) {
     try {
       const name = req.params.category_name;
@@ -49,6 +55,35 @@ class CategoryController {
           })
         : res.status(400).json({
             message: `id ${id} failed to remove`,
+          });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+
+  static async updateform() {
+    // fungsi untuk mengarahkan ke form update
+  }
+
+  static async updateCategory(req, res) {
+    try {
+      const id = +req.params.id;
+      const { category_name } = req.body;
+      let result = await category.update(
+        {
+          category_name,
+        },
+        {
+          where: { id },
+        }
+      );
+
+      result[0] === 1
+        ? res.status(200).json({
+            message: `Id ${id} has been updated`,
+          })
+        : res.status(400).json({
+            message: `id ${id} failed to update`,
           });
     } catch (err) {
       res.status(500).json(err);

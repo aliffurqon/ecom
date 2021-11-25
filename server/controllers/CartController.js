@@ -18,6 +18,10 @@ class CartController {
     }
   }
 
+  static async addForm() {
+    //fungsi untuk mengarahkan ke form add
+  }
+
   static async addCart(req, res) {
     try {
       const { productId, userId, status } = req.body;
@@ -63,8 +67,36 @@ class CartController {
     }
   }
 
-  static editCart(req, res) {}
-  static buyCart(req, res) {}
+  static updateForm(req, res) {
+    //fungsi untuk mengarahkan ke update form
+  }
+
+  static async updateCart(req, res) {
+    try {
+      const id = +req.params.id;
+      const { productId, userId, status } = req.body;
+      let result = await user_product.update(
+        {
+          productId,
+          userId,
+          status,
+        },
+        {
+          where: { id },
+        }
+      );
+
+      result[0] === 1
+        ? res.status(200).json({
+            message: `Id ${id} has been updated`,
+          })
+        : res.status(400).json({
+            message: `id ${id} failed to update`,
+          });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
 }
 
 module.exports = CartController;

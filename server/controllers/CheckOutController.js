@@ -1,4 +1,4 @@
-const { checkout, user_product, user } = require("../models");
+const { checkout, product, user, user_product } = require("../models");
 
 class CheckOutController {
   static async getCheckOut(req, res) {
@@ -9,7 +9,7 @@ class CheckOutController {
           userId: id,
         },
         // include: [user, category],
-        include: [user_product, user],
+        include: [product, user],
       });
       // console.log(result);
       res.status(200).json(result);
@@ -18,14 +18,27 @@ class CheckOutController {
     }
   }
 
+  static async addForm() {
+    //untuk add Form
+  }
+
   static async addCheckOut(req, res) {
     try {
-      const { productId, userId, status } = req.body;
+      const { productId, userId, subtotal, discount, tax, city, address, status, user_product_id, stock } = req.body;
       let result = await checkout.create({
         productId,
         userId,
+        subtotal,
+        discount,
+        tax,
+        city,
+        address,
         status,
       });
+      await user_product.destroy({
+        where: { user_product_id },
+      });
+      //tinggal masukin logika buat update stock berdasarkan productId
       res.status(201).json(result);
     } catch (e) {
       res.status(500).json(e);
@@ -63,8 +76,40 @@ class CheckOutController {
     }
   }
 
-  static editCheckOut(req, res) {}
-  static buyCheckOut(req, res) {}
+  static updateForm(req, res) {
+    //untuk form update
+  }
+
+  static async updateCheckout(req, res) {
+    try {
+      const id = +req.params.id;
+      const { productId, userId, subtotal, discount, tax, city, address, status } = req.body;
+      let result = await checkout.update(
+        {
+          productId,
+          userId,
+          subtotal,
+          discount,
+          tax,
+          city,
+          address,
+          status,
+        },
+        {
+          where: { id },
+        }
+      );
+      result[0] === 1
+        ? res.status(200).json({
+            message: `Id ${id} has been updated`,
+          })
+        : res.status(400).json({
+            message: `id ${id} failed to update`,
+          });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
 }
 
 module.exports = CheckOutController;
