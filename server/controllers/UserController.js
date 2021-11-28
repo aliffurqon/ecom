@@ -73,19 +73,30 @@ class UserController {
     }
   }
 
+  static async findById(req, res) {
+    try {
+      const { id } = req.body;
+      let result = await user.findAll({
+        where: {
+          id,
+        },
+      });
+      res.status(200).json(result);
+    } catch (e) {
+      res.status(500).json(e);
+    }
+  }
+
   static async updateUser(req, res) {
     try {
       const id = +req.params.id;
-      const { name, email, password, birthdate, gender, address, type } = req.body;
+      const { name, email, gender, address } = req.body;
       let result = await user.update(
         {
           name,
           email,
-          password,
-          birthdate,
           gender,
           address,
-          type,
         },
         {
           where: { id },
@@ -98,6 +109,26 @@ class UserController {
           })
         : res.status(400).json({
             message: `id ${id} failed to update`,
+          });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+
+  static async deleteUser(req, res) {
+    try {
+      const id = +req.params.id;
+
+      let result = await user.destroy({
+        where: { id },
+      });
+
+      result === 1
+        ? res.status(200).json({
+            message: `Id ${id} has been removed`,
+          })
+        : res.status(400).json({
+            message: `id ${id} failed to remove`,
           });
     } catch (err) {
       res.status(500).json(err);
