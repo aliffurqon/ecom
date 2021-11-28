@@ -34,6 +34,7 @@ class CheckOutController {
         city,
         address,
         status,
+        stock,
       });
       await user_product.destroy({
         where: { user_product_id },
@@ -83,7 +84,7 @@ class CheckOutController {
   static async updateCheckout(req, res) {
     try {
       const id = +req.params.id;
-      const { productId, userId, subtotal, discount, tax, city, address, status } = req.body;
+      const { productId, userId, subtotal, discount, tax, city, address, status, stock } = req.body;
       let result = await checkout.update(
         {
           productId,
@@ -94,6 +95,7 @@ class CheckOutController {
           city,
           address,
           status,
+          stock,
         },
         {
           where: { id },
