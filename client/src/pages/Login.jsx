@@ -2,6 +2,34 @@ import React from "react";
 import toko from "../img/toko.jpg";
 
 const Login = () => {
+  //state email dan password
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+
+  // //state validation
+  // const [validation, setValidation] = useState({});
+
+  // //history
+  // const history = useHistory();
+
+  // const loginUser = async (e) => {
+  //   e.preventDefault();
+
+  //   //send data to server
+  //   await axios
+  //     .post("http://localhost:3001/users/login", {
+  //       email: email,
+  //       password: password,
+  //     })
+  //     .then(() => {
+  //       //redirect
+  //       history.push("/profile");
+  //     })
+  //     .catch((error) => {
+  //       //assign validation on state
+  //       setValidation(error.response.data);
+  //     });
+  // };
   return (
     <div className="container">
       <div className="row">

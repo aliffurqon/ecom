@@ -24,7 +24,7 @@ class ProductController {
 
   static async addProduct(req, res) {
     try {
-      const { name, desc, price, stock, weight, categoryId, total_sold, rating, views } = req.body;
+      const { name, desc, price, stock, weight, categoryId } = req.body;
       let result = await product.create({
         name,
         desc,
@@ -32,9 +32,6 @@ class ProductController {
         stock,
         weight,
         categoryId,
-        total_sold,
-        rating,
-        views,
       });
       res.status(201).json(result);
     } catch (e) {
@@ -73,14 +70,23 @@ class ProductController {
     }
   }
 
-  static updateForm(req, res) {
-    //fungsi untuk mengarahkan ke form update
+  static async findByProductId(req, res) {
+    try {
+      const id = req.params.categoryId;
+      let result = await product.findAll({
+        include: [category],
+        where: { id },
+      });
+      res.status(200).json(result);
+    } catch (err) {
+      res.status(500).json(err);
+    }
   }
 
   static async updateProduct(req, res) {
     try {
       const id = +req.params.id;
-      const { name, desc, price, stock, weight, categoryId, total_sold, rating, views } = req.body;
+      const { name, desc, price, stock, weight, categoryId } = req.body;
       let result = await product.update(
         {
           name,
@@ -89,9 +95,6 @@ class ProductController {
           stock,
           weight,
           categoryId,
-          total_sold,
-          rating,
-          views,
         },
         {
           where: { id },

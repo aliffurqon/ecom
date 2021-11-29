@@ -1,6 +1,38 @@
 import React from "react";
+//import react router dom
+// import { Link } from "react-router-dom";
+
+//import axios
+// import axios from "axios";
 
 const Profile = () => {
+  // //define state
+  // const [users, setUsers] = useState([]);
+
+  // // useEffect hook
+  // useEffect(() => {
+  //   //panggil method "getData"
+  //   getData();
+  // }, []);
+
+  // const getData = async () => {
+  //   //panggil end point
+  //   const response = await axios.get("http://localhost:3001/users/all");
+  //   //get response data
+  //   const data = await response.data;
+
+  //   //assign response data to state "setUsers"
+  //   setUsers(data);
+  // };
+
+  // //function "deletePost"
+  // const deleteUser = async (id) => {
+  //   //sending
+  //   await axios.delete(`http://localhost:3001/users/delete/${id}`);
+
+  //   //panggil function "getData"
+  //   getData();
+  // };
   return (
     <div className="container mt-4 mb-3">
       <div className="row">

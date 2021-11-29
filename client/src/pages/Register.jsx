@@ -1,7 +1,50 @@
 import React from "react";
 import toko from "../img/toko.jpg";
+//import hook useState from react
+// import { useState } from "react";
+//import axios
+// import axios from "axios";
+//import hook history dari react router dom
+// import { useHistory } from "react-router-dom";
 
 const Register = () => {
+  //state
+  // const [name, setName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [gender, setGender] = useState("");
+  // const [address, setAddress] = useState("");
+  // const [type, setType] = useState("");
+
+  // //state validation
+  // const [validation, setValidation] = useState({});
+
+  // //history
+  // const history = useHistory();
+
+  // const registerUser = async (e) => {
+  //   e.preventDefault();
+
+  //   //send data to server
+  //   await axios
+  //     .post("http://localhost:3001/users/register", {
+  //       name: name,
+  //       email: email,
+  //       password: password,
+  //       gender: gender,
+  //       address: address,
+  //       type: type,
+  //     })
+  //     .then(() => {
+  //       //redirect
+  //       history.push("/login");
+  //     })
+  //     .catch((error) => {
+  //       //assign validation on state
+  //       setValidation(error.response.data);
+  //     });
+  // };
+
   return (
     <div className="container">
       <div className="row">
